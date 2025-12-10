@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>I like you… would you give me a chance?</title>
+  <style>
+    :root{--bg:#fff2f8;--card:#fff;--accent:#ff5c8a;--muted:#7a7a85}
+    html,body{
+      height:100%; margin:0;
+      font-family:Inter, Arial;
+      background:linear-gradient(180deg,var(--bg), #ffeaf4);
+      color:#1b1420;
+    }
+    .wrap{
+      min-height:100vh; display:flex;
+      align-items:center; justify-content:center;
+      padding:30px; box-sizing:border-box;
+    }
+    .card{
+      width:100%; max-width:1000px;
+      background:#fff; border-radius:20px;
+      padding:30px; display:flex; gap:30px;
+      box-shadow:0 20px 60px rgba(255,92,138,0.15);
+    }
+    .left{ flex:1; }
+    .right{
+      width:320px; min-width:240px;
+      background:#fff; padding:20px;
+      border-radius:16px; text-align:center;
+      box-shadow:0 6px 20px rgba(255,92,138,0.12);
+    }
+    .title{ font-size:34px; font-weight:800; }
+    .subtitle{ color:var(--muted); margin-top:6px; }
+    .message{ margin-top:20px; font-size:24px; font-weight:600; }
+    .heart{
+      font-size:80px; margin-top:10px; color:var(--accent);
+      animation:beat 1.2s infinite;
+    }
+    @keyframes beat{
+      0%{transform:scale(1);}
+      50%{transform:scale(1.15);}
+      100%{transform:scale(1);}
+    }
+    .editable{
+      border-bottom:2px dashed #ffabc7;
+      padding:2px 4px; border-radius:4px;
+    }
+    .controls{ margin-top:20px; display:flex; gap:10px; }
+    button{
+      background:var(--accent); color:#fff;
+      border:0; padding:10px 16px;
+      border-radius:10px; cursor:pointer;
+      font-weight:700;
+    }
+    .ghost{
+      background:transparent;
+      color:var(--accent);
+      border:2px solid #ffc1d4;
+    }
+    #qrBox{
+      width:200px; height:200px;
+      background:#fff; margin:0 auto 10px;
+      border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    input{
+      width:100%; padding:10px;
+      border-radius:8px; border:1px solid #ddd;
+      margin-top:10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+
+      <!-- LEFT -->
+      <div class="left">
+        <div class="title">A small thing I wanted to say</div>
+        <div class="subtitle">Quick. Honest. From me to you.</div>
+
+        <div class="message">
+          <span contenteditable="true" id="name" class="editable">Renuka</span>,<br>
+          I like you… would you give me a chance?
+          <div class="heart">❤️</div>
+        </div>
+
+        <div class="controls">
+          <button id="qrBtn">Generate QR</button>
+          <button class="ghost" id="previewBtn">Preview</button>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="right">
+        <div id="qrBox">QR appears here</div>
+        <input id="urlBox" readonly placeholder="Your page link appears here">
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const qrBox = document.getElementById("qrBox");
+    const urlBox = document.getElementById("urlBox");
+    const qrBtn = document.getElementById("qrBtn");
+    const previewBtn = document.getElementById("previewBtn");
+
+    previewBtn.addEventListener("click", () => {
+      let name = document.getElementById("name").textContent.trim() || "Hey";
+      alert(name + ",\n\nI like you… would you give me a chance?");
+    });
+
+    qrBtn.addEventListener("click", () => {
+      let url = location.href;
+      urlBox.value = url;
+
+      let img = new Image();
+      img.src =
+        "https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=" +
+        encodeURIComponent(url);
+      img.style.width = "180px";
+      img.style.height = "180px";
+
+      qrBox.innerHTML = "";
+      qrBox.appendChild(img);
+    });
+  </script>
+</body>
+</html>
