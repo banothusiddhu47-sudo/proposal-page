@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love Quiz 💘</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      overflow: hidden;
+      transition: background 1s;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: all 0.5s ease;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .yes {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .no {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="main">
+    <h1 id="question">Do you like talking to me? 🥰</h1>
+    <p id="hint">Be honest 😏</p>
+    <div class="buttons">
+      <button class="btn yes" id="yesBtn">Yes</button>
+      <button class="btn no" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <script>
+    const main = document.getElementById("main");
+    const question = document.getElementById("question");
+    const hint = document.getElementById("hint");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    // Questions that appear in order
+    const questions = [
+      { q: "Do you like talking to me? 🥰", h: "Be honest 😏" },
+      { q: "Are you sure you don't? 😜", h: "Think again 😘" },
+      { q: "Would you go out with me? 😚", h: "Just one cute date 😳" },
+      { q: "Do you love me? 💖", h: "Come on, say yes already 😍" }
+    ];
+
+    let step = 0;
+
+    // Handle Yes button
+    yesBtn.addEventListener("click", () => {
+      if (step < questions.length - 1) {
+        step++;
+        question.textContent = questions[step].q;
+        hint.textContent = questions[step].h;
+      } else {
+        main.innerHTML = `
+          <h1>Yay! ❤️</h1>
+          <p>I knew you loved me! 😍💋</p>
+          <button class="btn" style="background-color:#6a0dad" onclick="location.reload()">Restart</button>
+        `;
+      }
+    });
+
+    // Handle No button
+    noBtn.addEventListener("click", () => {
+      if (step < questions.length - 1) {
+        step++;
+        question.textContent = questions[step].q;
+        hint.textContent = questions[step].h;
+      } 
+    });
+
+    // “No” button runs away only on the last question
+    noBtn.addEventListener("mouseover", () => {
+      if (step === questions.length - 1) {
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        noBtn.style.position = "absolute";
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+      }
+    });
+  </script>
+</body>
+</html>
